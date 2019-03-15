@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Spreadsheet Editor</title>
+    
+    <link rel="icon" type="image/png" href="/resources/logo.png">
+    <link rel="stylesheet" href="/resources/sheetjs.css">
+    <style type="text/css"></style>
+    </head>
+    
+  <body>
+    <script type="text/javascript" async="" src="/resources/ga.js"></script><script src="/resources/alertify.js"></script>
+    <script src="/resources/jquery.min.js"></script>
+    <script src="/resources/jquery.handsontable.full.js"></script>
+
+    <link rel="stylesheet" media="screen" href="/resources/jquery.handsontable.full.css">
+    <link rel="stylesheet" media="screen" href="/resources/samples.css">
+    <link rel="stylesheet" media="screen" href="/resources/alertify.css">
+
+    <div id="body">
+      <div id="left">
+        <div id="logo">
+          <a href="index.html"><img src="/resources/logo.png" class="logo" alt="SheetJS Logo" width="128px" height="128px"></a>
+        </div>
+      <div id="drop">Drop a file here</div>
+      <input type="file" id="file" value=""><label for="file">... or click here to select a file</label>
+      <h3> Tables and Fields:</h3>
+      <div id="buttons"></div>
+    </div>
+    <div id="right">
+      <div id="header">
+        <pre id="out"></pre>
+        <h2>Spreadsheet Editor</h2>
+        <h3>Drop a spreadsheet anywhere on the page<br>and convert data into scannable barcodes<br>Powered by <b><a href="https://github.com/sheetjs/js-xlsx">SheetJS</a></b><br></h3>
+      </div>
+      <div><br><br><label>After dragging a file, enter an SQL select statement (query updates as you type): &nbsp; &nbsp;</label><input type="text" id="sql" disabled="true" class="winpt"></div>
+      <input type="submit" id="exporter" value="Export Results" onclick="exportit();" disabled="">
+      <pre id="sqlpre">SQL Errors will show up here</pre>
+      <div id="hot" style="overflow: scroll" class="handsontable"></div>
+      <div id="footnote">
+        <h3>
+          This particular parser assumes that <b>the first row of every table is a header row.</b>
+        </h3>
+        <br>
+      </div>
+    </div>
+
+<script type="text/javascript" src="/resources/shim.min.js"></script><script type="text/vbscript" language="vbscript">
+IE_GetProfileAndPath_Key = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\"
+Function IE_GetProfileAndPath(key): Set wshell = CreateObject("WScript.Shell"): IE_GetProfileAndPath = wshell.RegRead(IE_GetProfileAndPath_Key & key): IE_GetProfileAndPath = wshell.ExpandEnvironmentStrings("%USERPROFILE%") & "!" & IE_GetProfileAndPath: End Function
+Function IE_SaveFile_Impl(FileName, payload): Dim data, plen, i, bit: data = CStr(payload): plen = Len(data): Set fso = CreateObject("Scripting.FileSystemObject"): fso.CreateTextFile FileName, True: Set f = fso.GetFile(FileName): Set stream = f.OpenAsTextStream(2, 0): For i = 1 To plen Step 3: bit = Mid(data, i, 2): stream.write Chr(CLng("&h" & bit)): Next: stream.Close: IE_SaveFile_Impl = True: End Function
+</script>
+        
+<script type="text/vbscript" language="vbscript">
+Function IE_LoadFile_Impl(FileName): Dim out(), plen, i, cc: Set fso = CreateObject("Scripting.FileSystemObject"): Set f = fso.GetFile(FileName): Set stream = f.OpenAsTextStream(1, 0): plen = f.Size: ReDim out(plen): For i = 1 To plen Step 1: cc = Hex(Asc(stream.read(1))): If Len(cc) < 2 Then: cc = "0" & cc: End If: out(i) = cc: Next: IE_LoadFile_Impl = Join(out,""): End Function
+</script>
+    <script type="text/javascript" src="/resources/xlsx.full.min.js"></script>
+    <script src="/resources/dropsheet.js"></script>
+    <script src="/resources/main.js"></script>
+
+    <script src="/resources/spin.js"></script>
+  
+
+</div>
+</body>
+</html>
