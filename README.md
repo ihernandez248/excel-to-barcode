@@ -1,4 +1,4 @@
-# excel-to-barcodes
+# Excel to Barcodes Converter
 
 Upload your excel sheet with values and covert them to scannable barcodes.
 (Easy to Follow in App Instructions)
